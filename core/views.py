@@ -12,7 +12,7 @@ class PageNumberSetPagination(pagination.PageNumberPagination):
 
 
 class PostViewSet(viewsets.ModelViewSet):
-    serach_fields = ['content', 'h1']
+    search_fields = ['content', 'h1']
     filter_backends = (filters.SearchFilter,)
     serializer_class = PostSerializer
     queryset = Post.objects.all()
@@ -74,6 +74,6 @@ class CommentView(generics.ListCreateAPIView):
     permission_classes = [permissions.IsAuthenticated]
 
     def get_queryset(self):
-        post_slug = self.kwargs['post_slug'].lower()
+        post_slug = self.kwargs['post_slug']
         post = Post.objects.get(slug=post_slug)
         return Comment.objects.filter(post=post)

@@ -62,11 +62,18 @@ class UserSerializer(serializers.ModelSerializer):
         fields = '__all__'
 
 
+from .models import Comment
+
+
 class CommentSerializer(serializers.ModelSerializer):
 
-    username = serializers.SlugRelatedField(slug_field='username', queryset=User.objects.all())
+    username = serializers.SlugRelatedField(slug_field="username", queryset=User.objects.all())
     post = serializers.SlugRelatedField(slug_field="slug", queryset=Post.objects.all())
 
     class Meta:
-        model = User
-        fields = '__all__'
+        model = Comment
+        fields = ("id", "post", "username", "text", "created_date")
+        lookup_field = 'id'
+        extra_kwargs = {
+            'url': {'lookup_field': 'id'}
+        }
