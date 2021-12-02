@@ -62,9 +62,6 @@ class UserSerializer(serializers.ModelSerializer):
         fields = '__all__'
 
 
-from .models import Comment
-
-
 class CommentSerializer(serializers.ModelSerializer):
 
     username = serializers.SlugRelatedField(slug_field="username", queryset=User.objects.all())
